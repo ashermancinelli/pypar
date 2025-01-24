@@ -1,0 +1,2 @@
+[console_scripts]
+pypar = pypar:main
