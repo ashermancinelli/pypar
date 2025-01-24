@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "parallel-progress-bar"
-version = "0.1.0"
+version = "0.2.0"
 description = "slim gnu-parallel clone with a better progress bar"
 readme = "README.md"
 license = { file = "LICENSE" }

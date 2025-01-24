@@ -5,6 +5,9 @@ import os
 from multiprocessing import Pool
 from tqdm import tqdm
 import time
+import importlib.metadata
+
+version = importlib.metadata.version("parallel_progress_bar")
 
 def execute_command(id, command):
     """Executes a single command."""
@@ -38,13 +41,11 @@ def main():
     parser = argparse.ArgumentParser(description="Parallel command executor")
     parser.add_argument("-j", "--jobs", type=int, default=os.cpu_count(), help="Number of parallel jobs (default: 4)")
     parser.add_argument("command", default='{}', type=str, help="Command to run, where '{}' is replaced with lines from stdin")
-    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.1.0")
-
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s " + str(version))
 
     args = parser.parse_args()
     command = args.command.replace('{}', '{0}')
     commands = [command.format(line.strip()) for line in sys.stdin]
-    print(commands)
     with Pool(processes=args.jobs) as pool:
         with tqdm(total=len(commands)) as pbar:
             for i, c in enumerate(commands):
